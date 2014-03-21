@@ -32,6 +32,21 @@ group :doc do
   gem 'sdoc', require: false
 end
 
+gem 'quiet_assets'
+
+group :development do
+  gem 'thin'
+end
+
+# Helpers
+gem 'simple_form'
+
+# Localization
+gem 'russian'
+
+# Use curb for working with external services
+gem 'curb'
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
