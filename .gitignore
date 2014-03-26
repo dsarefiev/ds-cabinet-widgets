@@ -20,4 +20,5 @@ pickle-email-*.html
 config/initializers/secret_token.rbc
 config/database.yml
 .DS_Store
-.todo
+*.todo
+TODO
