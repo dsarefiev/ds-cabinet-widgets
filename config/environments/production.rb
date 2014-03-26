@@ -77,4 +77,12 @@ DsCabinetWidgets::Application.configure do
 
   # Use default logging formatter so that PID and timestamp are not suppressed.
   config.log_formatter = ::Logger::Formatter.new
+
+  # UAS settings
+  config.uas_url = 'https://pim.sredda.ru:4443/authentication'
+  config.uas_sertificate = "#{Rails.root}/certs/ds_admin.pem"
+  config.uas_query_log = false
+
+  # Authentication settings
+  config.auth_domain = '.dasreda.ru'
 end
