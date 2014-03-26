@@ -5,6 +5,9 @@ module Uas
   class InternalError < Error
   end
 
+  class NotAuthorized < Error
+  end
+
   class InvalidCredentials < Error
   end
 
