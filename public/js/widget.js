@@ -1,4 +1,4 @@
-function createWidget(config) {
+function createWidget(positionId, config) {
     var Util = {
         extendObject: function(a, b) {
             for(prop in b){
@@ -30,10 +30,11 @@ function createWidget(config) {
             this.widgetElement.innerHTML = ' \
                 <iframe id="widget_iframe' + options.id + '" src="' + options.widget_url + '" scrolling="no" width="100%" height="0" frameborder="0"></iframe>';
 
-            document.body.insertBefore(this.widgetElement, document.body.nextSibling);
+            position = document.getElementById(positionId);
+            position.appendChild(this.widgetElement);
+
             this.widgetElement.style.display = 'block';
             this.created = true;
-            console.log(this);
         }
     }
 
