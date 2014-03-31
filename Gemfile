@@ -54,7 +54,13 @@ gem 'curb'
 # gem 'unicorn'
 
 # Use Capistrano for deployment
-# gem 'capistrano', group: :development
+
+group :development do
+  gem 'capistrano'
+  gem 'capistrano-rvm'
+  gem 'capistrano-rails'
+  gem 'capistrano3-unicorn'
+end
 
 # Use debugger
 # gem 'debugger', group: [:development, :test]
