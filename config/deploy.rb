@@ -34,10 +34,13 @@ set :linked_dirs, %w{bin certs log tmp/pids tmp/cache tmp/sockets vendor/bundle 
 # Default value for keep_releases is 5
 # set :keep_releases, 5
 
+set :rails_env, fetch(:stage)
+
 namespace :deploy do
 
   desc 'Restart application'
   task :restart do
+    invoke 'unicorn:restart'
     on roles(:app), in: :sequence, wait: 5 do
       # Your restart mechanism here, for example:
       # execute :touch, release_path.join('tmp/restart.txt')
