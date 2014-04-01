@@ -4,9 +4,9 @@
 # server in each group is considered to be the first
 # unless any hosts have the primary property set.
 # Don't declare `role :all`, it's a meta role
-role :app, %w{deploy@example.com}
-role :web, %w{deploy@example.com}
-role :db,  %w{deploy@example.com}
+role :app, %w{aaarefiev@178.159.255.148:8022}
+role :web, %w{aaarefiev@178.159.255.148:8022}
+role :db,  %w{aaarefiev@178.159.255.148:8022}
 
 set :deploy_to, '/var/www/delo-widgets-dev'
 
