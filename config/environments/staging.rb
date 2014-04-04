@@ -27,7 +27,7 @@ DsCabinetWidgets::Application.configure do
   # number of complex assets.
   config.assets.debug = false
 
-   # Disable Rails's static asset server (Apache or nginx will already do this).
+  # Disable Rails's static asset server (Apache or nginx will already do this).
   config.serve_static_assets = false
 
   # Compress JavaScripts and CSS.
@@ -49,9 +49,8 @@ DsCabinetWidgets::Application.configure do
 
   config.asset_symlink = { 'widget.js' => 'lib/widget.js' }
 
-
   # UAS settings
-  config.uas_url = 'https://pim.sredda.ru:4443/authentication'
+  config.uas_url = 'https://pim.sredda.ru/authentication'
   config.uas_sertificate = "#{Rails.root}/certs/ds_admin.pem"
   config.uas_query_log = true
 
