@@ -26,6 +26,8 @@ GEM
       thread_safe (~> 0.1)
       tzinfo (~> 0.3.37)
     arel (4.0.2)
+    asset_symlink (0.1.0)
+      rails (~> 4.0)
     atomic (1.1.15)
     builder (3.1.4)
     capistrano (3.1.0)
@@ -159,6 +161,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  asset_symlink
   capistrano
   capistrano-rails
   capistrano-rvm

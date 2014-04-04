@@ -33,6 +33,7 @@ group :doc do
 end
 
 gem 'quiet_assets'
+gem 'asset_symlink'
 
 group :development do
   gem 'thin'
