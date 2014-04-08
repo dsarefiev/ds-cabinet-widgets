@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Demo DsCabinetWidgets</title>
+
+  <%= javascript_include_tag "jquery", "data-turbolinks-track" => true %>
+  <%= csrf_meta_tags %>
+
+  <link href="/css/bootstrap.min.css" rel="stylesheet">
+  <link href="/css/font-awesome.min.css" rel="stylesheet">
+
+
+  <script type="text/javascript" src="http://local.sredda.ru:3000/assets/widget.js"></script>
+  <script type="text/javascript">
+    var widgetOptions1 = {
+      id: 1,
+      domain: 'local.sredda.ru:3000',
+      path: '/purchase',
+      nocache: Math.random()
+    };
+    var widgetOptions2 = {
+      id: 2,
+      domain: 'local.sredda.ru:3000',
+      path: '/purchase/concierge',
+      nocache: Math.random()
+    };
+
+  </script>
+
+</head>
+<div class="container">
+
+<header class="navbar navbar-default" role="navigation">
+  <div class="navbar-header">
+  <% if current_user %>
+    <p class="navbar-text">
+    Вы вошли как: <%= current_user.login %> |
+    UserId: <%= current_user.user_id %> </p>
+  <% else %>
+  <p class="navbar-text">Вы не авторизовались. Авторизутесь <a href ="http://dev-delo.sredda.ru/" target="_blank">тут</a>.</p>
+  <% end %>
+  </div>
+</header>
+
+<div class="page-header">
+  <h1>Демо-приложение
+  <small>для показа виджета</small></h1>
+</div>
+
+<%= yield %>
+
+
+</div>
+
+<script src="/js/bootstrap.js"></script>
+</body>
+</html>
