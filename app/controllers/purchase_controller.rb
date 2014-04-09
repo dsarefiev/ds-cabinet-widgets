@@ -9,6 +9,7 @@ class PurchaseController < ApplicationController
 
   def concierge
     @message = "Виджет консьержа"
+    @api_token = params[:api_token]
   end
 
 end
