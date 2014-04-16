@@ -1,7 +1,25 @@
+<script type="text/javascript">
+    var widgetOptions1 = {
+      id: 1,
+      domain: 'local.sredda.ru:3000',
+      path: '/purchases/show',
+      nocache: Math.random()
+    };
+    var widgetOptions2 = {
+      id: 2,
+      domain: 'local.sredda.ru:3000',
+      path: '/purchases/concierge',
+      nocache: Math.random()
+    };
+    var widgetParams = {
+      widget_id: 4
+    };
+
+  </script>
 
 
 <p>
-  <button type="button" class="btn btn-success" onclick="createWidget('widget_place1', widgetOptions1)">Show Widget</button>
+  <button type="button" class="btn btn-success" onclick="createWidget('widget_place1', widgetOptions1, widgetParams)">Show Widget</button>
   <button type="button" class="btn btn-warning" onclick="createWidget('widget_place2', widgetOptions2)">Show Concierge Widget</button>
 </p>
 

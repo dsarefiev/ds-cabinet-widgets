@@ -1,0 +1,25 @@
+<div class="panel panel-warning">
+  <div class="panel-heading">
+    <h3 class="panel-title">Создание нового предложения:</h3>
+  </div>
+  <div class="panel-body">
+<%= form_for @widget, url: {:action=>"create", :controller=>"purchases"} do |f| %>
+
+  <div class="form-group">
+    <label for="ClientId">ClientId</label>
+    <input type="text" class="form-control" id="ClientId" placeholder="ClientId" value="<%= @widget[:client_id] %>">
+  </div>
+  <div class="form-group">
+    <label for="ConciergeId">ConciergeId</label>
+    <input type="text" class="form-control" id="ConciergeId" placeholder="ConciergeId" value="<%= @widget[:owner_id] %>">
+  </div>
+  <div class="form-group">
+    <label for="ApiToken">ApiToken</label>
+    <input type="text" class="form-control" id="ApiToken" placeholder="ApiToken" value="<%= @api_token %>">
+  </div>
+  <button type="submit" class="btn btn-warning">Сделать предложение</button>
+
+<% end %>
+
+  </div>
+</div>

@@ -2,15 +2,20 @@
     var cWidgetOptions = {
       id: 1,
       domain: 'local.sredda.ru:3000',
-      path: '/purchase/concierge',
+      path: '/purchases/new',
       nocache: Math.random()
     };
 
+    var cWidgetParams = {
+      api_token: '<%= @user[:api_token] %>',
+      client_id: 4,
+      owner_id: 1
+    };
 </script>
 
-
+<%= purchases_path %>
 <p>
-  <button type="button" class="btn btn-warning" onclick="createWidget('widget_place2', cWidgetOptions, '<%= @user[:api_token] %>')">Show Concierge Widget</button>
+  <button type="button" class="btn btn-warning" onclick="createWidget('widget_place1', cWidgetOptions, cWidgetParams)">Show Concierge Widget</button>
 </p>
 
 
@@ -18,9 +23,3 @@
   <div class="panel-body">
  </div>
 </div>
-
-<div id='widget_place2' class="panel panel-default">
-  <div class="panel-body">
- </div>
-</div>
-
