@@ -13,9 +13,20 @@
     };
 </script>
 
-<%= purchases_path %>
+<script type="text/javascript">
+
+  function sendMessage(msg, iframe_id){
+    iframe = document.getElementById(iframe_id);
+    iframe_url = iframe.src.replace(/^.*/, '');
+    XD.postMessage(msg, iframe_url, iframe.contentWindow);
+  }
+
+</script>
+
 <p>
   <button type="button" class="btn btn-warning" onclick="createWidget('widget_place1', cWidgetOptions, cWidgetParams)">Show Concierge Widget</button>
+
+  <button type="button" class="btn btn-info" onclick="sendMessage('42', 'widget_iframe1')">Send Message</button>
 </p>
 
 
