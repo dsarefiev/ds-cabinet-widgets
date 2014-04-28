@@ -43,7 +43,7 @@ module Uas
 
         Curl::Easy.new(url) do |curl|
           curl.use_ssl = 1
-          curl.verbose = true
+          curl.verbose = Rails.configuration.uas_curl_verbose
           curl.cert = Rails.configuration.uas_sertificate
           curl.ssl_verify_peer = false
           curl.ssl_verify_host = false

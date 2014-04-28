@@ -31,6 +31,7 @@ DsCabinetWidgets::Application.configure do
   config.uas_url = 'https://pim.sredda.ru:4443/authentication'
   config.uas_sertificate = "#{Rails.root}/certs/ds_admin.pem"
   config.uas_query_log = true
+  config.uas_curl_verbose = true
 
   # PIM settings
   # config.pim_server = 'https://pim.sredda.ru:4443/'
