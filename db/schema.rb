@@ -18,7 +18,7 @@ ActiveRecord::Schema.define(version: 20140410113124) do
 
   create_table "widgets", force: true do |t|
     t.string   "client_id"
-    t.string   "autor_id"
+    t.string   "owner_id"
     t.string   "topic_id"
     t.string   "type"
     t.string   "status"
