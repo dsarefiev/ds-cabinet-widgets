@@ -47,6 +47,9 @@ gem 'russian'
 
 # Use curb for working with external services
 gem 'curb'
+# ToDo Remove
+gem 'httparty'
+
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
