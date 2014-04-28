@@ -40,9 +40,12 @@ DsCabinetWidgets::Application.configure do
 
   # CART settings
   config.cart_url = 'http://cart.sredda.ru'
+  config.cart_sertificate = "#{Rails.root}/certs/ds_admin.pem"
   config.cart_summary_url = 'http://cart.sredda.ru/api/items/summary'
   config.cart_merchant_id = '100004'
   config.cart_merchant_password = 'password4'
+  config.cart_query_log = true
+  config.cart_curl_verbose = true
 
   # Authentication settings
   config.auth_domain = '.sredda.ru'
