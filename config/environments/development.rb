@@ -32,6 +32,17 @@ DsCabinetWidgets::Application.configure do
   config.uas_sertificate = "#{Rails.root}/certs/ds_admin.pem"
   config.uas_query_log = true
 
+  # PIM settings
+  # config.pim_server = 'https://pim.sredda.ru:4443/'
+  config.pim_server = 'https://ccdemopim.sredda.ru:5443/'
+  config.pim_product_offerings = ['5336743']
+
+  # CART settings
+  config.cart_url = 'http://cart.sredda.ru'
+  config.cart_summary_url = 'http://cart.sredda.ru/api/items/summary'
+  config.cart_merchant_id = '100004'
+  config.cart_merchant_password = 'password4'
+
   # Authentication settings
   config.auth_domain = '.sredda.ru'
 end
