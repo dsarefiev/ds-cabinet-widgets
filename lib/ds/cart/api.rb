@@ -14,6 +14,7 @@ module Ds
       response = Ds::Cart::Query.execute(url, request: request, method: :get)
       case response[:code]
         when 200 then JSON.parse(response[:body])
+        when 500 then raise InternalError, JSON.parse(response[:body])["ErrorMessage"]
         else raise InternalError
       end
     end
@@ -24,6 +25,7 @@ module Ds
       response = Ds::Cart::Query.execute(url, request: request, method: :get)
       case response[:code]
         when 200 then JSON.parse(response[:body])
+        when 500 then raise InternalError, JSON.parse(response[:body])["ErrorMessage"]
         else raise InternalError
       end
     end
@@ -35,6 +37,7 @@ module Ds
       response = Ds::Cart::Query.execute(url, request: request, method: :get)
       case response[:code]
         when 200 then JSON.parse(response[:body])
+        when 500 then raise InternalError, JSON.parse(response[:body])["ErrorMessage"]
         else raise InternalError
       end
     end

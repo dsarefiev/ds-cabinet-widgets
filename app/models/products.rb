@@ -26,7 +26,7 @@ class Products
       OfferingId: options[:offering_id],
       OfferingPriceId: options[:offering_price_id],
       Characteristics: [],
-      ClientKey: options[:siebel_id],
+      ClientKey: options[:client_siebel_id],
     }
 
     Ds::Cart::Api.add_to_cart(offering, Rails.configuration.pim_product_url)

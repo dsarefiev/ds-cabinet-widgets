@@ -1,8 +1,21 @@
 <div class="panel panel-success">
   <div class="panel-heading">
-    <h3 class="panel-title"><%= @message %>!</h3>
+    <h3 class="panel-title"><%= @title %>!</h3>
   </div>
   <div class="panel-body">
-    Widget: <%= @widget.id %> (<%= rand(36**6).to_s(36) %>)
+
+<% if  @widget.cart[:count] > 0%>
+  <table class="table">
+  <% @widget.cart[:items].each do |item| %>
+    <tr>
+      <td><%= item['Name'] %></td>
+      <td><%= item['Price'] %> р.</td>
+    </tr>
+  <% end -%>
+  </table>
+  <% else %>
+  <p>В корзине пусто...</p>
+<% end -%>
+
   </div>
 </div>
