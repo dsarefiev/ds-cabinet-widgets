@@ -34,9 +34,15 @@ DsCabinetWidgets::Application.configure do
   config.uas_curl_verbose = true
 
   # PIM settings
-  # config.pim_server = 'https://pim.sredda.ru:4443/'
-  config.pim_server = 'https://ccdemopim.sredda.ru:5443/'
+  config.pim_url = 'https://pim.sredda.ru:4443/'
+  config.pim_server = 'https://pim.sredda.ru:4443/'
+  config.pim_sertificate = "#{Rails.root}/certs/ds_admin.pem"
+  # config.pim_server = 'https://ccdemopim.sredda.ru:5443/'
   config.pim_product_offerings = ['5336743']
+  config.pim_product_url = 'http://dsstore.dasreda.ru/'
+  # config.pim_product_offerings = ['5215886']
+  config.pim_query_log = true
+  config.pim_curl_verbose = true
 
   # CART settings
   config.cart_url = 'http://cart.sredda.ru'
@@ -47,6 +53,9 @@ DsCabinetWidgets::Application.configure do
   config.cart_query_log = true
   config.cart_curl_verbose = true
 
+  # CABINET settings
+
   # Authentication settings
   config.auth_domain = '.sredda.ru'
+
 end
