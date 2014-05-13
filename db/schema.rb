@@ -17,9 +17,10 @@ ActiveRecord::Schema.define(version: 20140410113124) do
   enable_extension "plpgsql"
 
   create_table "widgets", force: true do |t|
-    t.string   "client_id"
-    t.string   "owner_id"
-    t.string   "topic_id"
+    t.integer  "client_id"
+    t.string   "client_siebel_id"
+    t.integer  "owner_id"
+    t.integer  "topic_id"
     t.string   "type"
     t.string   "status"
     t.text     "metadata"

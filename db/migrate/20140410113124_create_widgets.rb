@@ -1,12 +1,13 @@
 class CreateWidgets < ActiveRecord::Migration
   def change
     create_table :widgets do |t|
-      t.string :client_id
-      t.string :owner_id
-      t.string :topic_id
-      t.string :type
-      t.string :status
-      t.text   :metadata
+      t.integer :client_id
+      t.string  :client_siebel_id
+      t.integer :owner_id
+      t.integer :topic_id
+      t.string  :type
+      t.string  :status
+      t.text    :metadata
 
       t.timestamps
     end
