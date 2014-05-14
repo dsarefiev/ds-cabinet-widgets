@@ -19,7 +19,7 @@ class PurchasesController < ApplicationController
       }
     end
     @widget = Widgets.new(widget_params)
-    @api_token = params[:api_token]
+    @api_token = api_token_params[:api_token]
     render :concierge
   end
 
@@ -33,12 +33,13 @@ class PurchasesController < ApplicationController
     }
     @cart_response = Products.add_to_cart(cart_option)
 
-    # Создаем виджет в чате клиента через API
-
     # Сохраняем виджет в базу
-    widget_params[:metadata] = params[:offering].to_json
-    @widget = Widgets.create(widget_params)
+    @widget = Widgets.create(widget_params.merge({metadata: offering_params.to_json}))
     @title = "Предложение отправлено #{@widget.id}"
+
+    # Создаем виджет в чате клиента через API
+    puts Ds::Cabinet::Api.create_topic(@widget, api_token_params[:api_token])
+
     render :widget
 
     rescue Ds::Cart::Error => e
@@ -56,6 +57,14 @@ class PurchasesController < ApplicationController
 
   def widget_params
       params.permit(:client_id, :client_siebel_id, :owner_id)
+  end
+
+  def offering_params
+      params.permit(:offering)
+  end
+
+  def api_token_params
+      params.permit(:api_token)
   end
 
 end
