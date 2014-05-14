@@ -19,8 +19,11 @@ module Ds
         client = client(url, api_token)
         client.post(request.to_json)
 
-        { code: client.response_code,
-          body: client.body_str }
+        if client.response_code == 201
+          JSON.parse(client.body_str)
+        else
+          false
+        end
       end
 
 
