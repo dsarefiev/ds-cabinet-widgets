@@ -15,4 +15,3 @@
 //= require turbolinks
 //= require xd
 //= require widget_message
-//= require_tree .
