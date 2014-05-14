@@ -30,7 +30,17 @@ class Products
     }
 
     Ds::Cart::Api.add_to_cart(offering, Rails.configuration.pim_product_url)
+  end
 
+  def self.clear_cart(client_siebel_id)
+    summary = Ds::Cart::Api.get_cart_summary(client_siebel_id)
+
+    if summary['Count'] > 0
+      items = Ds::Cart::Api.get_cart_items(client_siebel_id)
+      items.each do |item|
+        Ds::Store::Api.instance.cart_delete(item['CartItemId'])
+      end
+    end
   end
 
 end
