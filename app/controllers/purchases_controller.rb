@@ -65,7 +65,13 @@ class PurchasesController < ApplicationController
   end
 
   def show
-    @widget = Widgets.find params[:widget_id]
+    if topic_params
+      @widget = Widgets.last_active.find_by topic_params
+    elsif current_user
+      @widget = Widgets.last_active.find_by_client_siebel_id current_user.user_id
+    else
+      @widget = Widgets.last_active.take
+    end
     @title = "Виджет клиента"
     render :widget
   rescue ActiveRecord::RecordNotFound
@@ -79,8 +85,8 @@ class PurchasesController < ApplicationController
       params.permit(:client_id, :client_siebel_id, :owner_id)
   end
 
-  def offering_params
-      params.permit(offering: [])
+  def topic_params
+      params.permit(:topic_id)
   end
 
   def api_token_params
