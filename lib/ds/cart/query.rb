@@ -11,12 +11,14 @@ module Ds
       request = options[:request] || {}
       method = options[:method] || :get
 
-      url += '?' + request.to_param if method == :get && !request.empty?
+      url += '?' + request.to_param if (method == :get || method == :delete) && !request.empty?
       client = client(url)
 
       case method
         when :post
           client.post(request.to_json)
+        when :delete
+          client.http(:DELETE)
         when :put
           client.post_body = Curl::postalize(JSON.dump(request))
           client.http(:PUT)

@@ -58,6 +58,19 @@ module Ds
       end
     end
 
+    def self.cart_delete(id)
+      url = 'api/items'
+      request = {
+          id: id
+        }
+      response = Ds::Cart::Query.execute(url, request: request, method: :delete)
+      case response[:code]
+        when 204 then true
+        when 500 then raise InternalError, JSON.parse(response[:body])["ErrorMessage"]
+        else raise InternalError, 'Unknown error'
+      end
+    end
+
   end
 
   end

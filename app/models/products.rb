@@ -38,7 +38,7 @@ class Products
     if summary['Count'] > 0
       items = Ds::Cart::Api.get_cart_items(client_siebel_id)
       items.each do |item|
-        Ds::Store::Api.instance.cart_delete(item['CartItemId'])
+        Ds::Cart::Api.cart_delete(item['CartItemId'])
       end
     end
   end
