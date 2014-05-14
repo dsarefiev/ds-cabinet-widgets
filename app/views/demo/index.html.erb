@@ -1,26 +1,20 @@
 <script type="text/javascript">
-    var widgetOptions1 = {
+    var widgetOptions = {
       id: 1,
       domain: 'local.sredda.ru:3000',
       path: '/purchases/show',
-      nocache: Math.random()
+      nocache: Math.random(),
+      params: {
+        widget_id: 6
+      }
     };
-    var widgetOptions2 = {
-      id: 2,
-      domain: 'local.sredda.ru:3000',
-      path: '/purchases/concierge',
-      nocache: Math.random()
-    };
-    var widgetParams = {
-      widget_id: 4
-    };
-
   </script>
 
 
 <p>
-  <button type="button" class="btn btn-success" onclick="createWidget('widget_place1', widgetOptions1, widgetParams)">Show Widget</button>
-  <button type="button" class="btn btn-warning" onclick="createWidget('widget_place2', widgetOptions2)">Show Concierge Widget</button>
+  <button type="button" class="btn btn-success" onclick="createWidget('widget_place1', widgetOptions)">Show Widget</button>
+  <a class="show-modal-window btn btn-primary" data-target="#modal-window" data-toggle="modal" href="/demo/show_modal">Show Modal</a>
+
   <button type="button" class="btn btn-warning" onclick="reloadWidget('widget_iframe1')">Reload</button>
   <button type="button" class="btn btn-warning" onclick="callWidget('widget_iframe1', 'parent_call', {domain: 'sredda.ru'})">Call</button>
 </p>
@@ -35,4 +29,36 @@
   <div class="panel-body">
  </div>
 </div>
+
+<% if @cart_summary %>
+<div id='place2' class="panel panel-default">
+  <div class="panel-body">
+  <%= @cart_summary.inspect %>
+  <% if @cart_summary['Count'] > 0 %>
+  <%= @cart_items1.inspect %>
+  <p><%= @cart_items1.first['Name'] %></p>
+  <% end %>
+ </div>
+</div>
+<% end %>
+
+<% if @store_api_respond %>
+<div id='place2' class="panel panel-default">
+  <div class="panel-body">
+  <%= @store_api_respond.inspect %>
+ </div>
+</div>
+<% end %>
+
+<% if @product %>
+<div id='place2' class="panel panel-default">
+  <div class="panel-body">
+  <% @product_prices.each do |pr| %>
+    <%= pr['Id'] %> - <%= pr['Name'] %><br>
+  <% end %>
+  <%= @product['Name'] %>
+ </div>
+</div>
+<% end %>
+
 
