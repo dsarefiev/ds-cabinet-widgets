@@ -77,6 +77,8 @@ DsCabinetWidgets::Application.configure do
   config.cabinet_url = 'http://dev-delo.sredda.ru'
   config.cabinet_curl_verbose = true
 
+  config.widget_domain = 'delo-widgets-dev.sredda.ru:8082'
+
   # Authentication settings
   config.auth_domain = '.sredda.ru'
 end

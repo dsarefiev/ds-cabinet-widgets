@@ -1,4 +1,5 @@
 class DemoController < ApplicationController
+  before_action :get_domain
 
   def index
 
@@ -11,6 +12,10 @@ class DemoController < ApplicationController
       integration_id: 'UAS100452',
       api_token: 'd3cbe27b945f01e2d60188b94e9cb4fe4a1f69ade74094927ffd58e5b7045503'
     }
+  end
+
+  def get_domain
+    @domain = Rails.configuration.widget_domain
   end
 
   def concierge
