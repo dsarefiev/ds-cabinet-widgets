@@ -3,7 +3,12 @@
     <h3 class="panel-title">Создание нового предложения:</h3>
   </div>
   <div class="panel-body">
+<% if @warning_message %>
 
+  <p><%= @warning_message %></p>
+  <p><a class="btn btn-danger" href="?<%= @params %>"><span class="glyphicon glyphicon-remove-circle"></span> Очистить корзину</a></p>
+
+<% else %>
 
 <%= form_for @widget, url: { :action=>"create", :controller=>"purchases" }, html: { :role=>"form" } do |f| %>
   <%= hidden_field_tag(:api_token, @api_token) %>
@@ -23,6 +28,8 @@
   <% end %>
 
   <button type="submit" class="btn btn-warning">Сделать предложение</button>
+<% end %>
+
 <% end %>
 
   </div>

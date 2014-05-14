@@ -7,25 +7,36 @@ class PurchasesController < ApplicationController
   end
 
   def new
+
+    # Очистка корзины если она не пустая
+    if params[:with] == 'clear' && params[:client_siebel_id]
+      Products.clear_cart(params[:client_siebel_id])
+    end
+
     # TODO проверка валидности api_token
 
-    # Загружаем Предложения и цены
-    @offerings = []
-    Products.offerings.each do |offering_id|
-      product = Products.new(offering_id)
-      @offerings << {
-        :product => product.offering,
-        :prices => product.prices
-      }
-    end
     @widget = Widgets.new(widget_params)
-    @api_token = api_token_params[:api_token]
+    if @widget.cart[:count] > 0
+      @warning_message = 'В корзине клиента уже есть предложения: ' + @widget.cart[:items].first['Name']
+      @params = params.merge({with:'clear'}).to_param
+    else
+      # Загружаем Предложения и цены
+      @offerings = []
+      Products.offerings.each do |offering_id|
+        product = Products.new(offering_id)
+        @offerings << {
+          :product => product.offering,
+          :prices => product.prices
+        }
+      end
+      @api_token = api_token_params[:api_token]
+    end
     render :concierge
   end
 
   def create
-    # Кладем товар в корзину
 
+    # Кладем товар в корзину
     cart_option = {
       :offering_id => params[:offering].keys.first,
       :offering_price_id => params[:offering].values.first,
@@ -34,23 +45,32 @@ class PurchasesController < ApplicationController
     @cart_response = Products.add_to_cart(cart_option)
 
     # Сохраняем виджет в базу
-    @widget = Widgets.create(widget_params.merge({metadata: offering_params.to_json}))
+    widget = {
+      widget_type: 'purchase',
+      status: 'new',
+      metadata: params[:offering].to_json
+    }
+    @widget = Widgets.create(widget.merge(widget_params))
     @title = "Предложение отправлено #{@widget.id}"
 
     # Создаем виджет в чате клиента через API
-    puts Ds::Cabinet::Api.create_topic(@widget, api_token_params[:api_token])
-
+    topic = Ds::Cabinet::Api.create_topic(@widget, api_token_params[:api_token])
+    if topic
+      @widget.update_attributes(topic_id: topic['id'], status: 'chated')
+    end
     render :widget
-
-    rescue Ds::Cart::Error => e
-      @error_message = e.message
-      render :error
+  rescue Ds::Cart::Error => e
+    @error_message = e.message
+    render :error
   end
 
   def show
     @widget = Widgets.find params[:widget_id]
     @title = "Виджет клиента"
     render :widget
+  rescue ActiveRecord::RecordNotFound
+    @error_message = 'Виджет не найден'
+    render :error
   end
 
   private
@@ -60,7 +80,7 @@ class PurchasesController < ApplicationController
   end
 
   def offering_params
-      params.permit(:offering)
+      params.permit(offering: [])
   end
 
   def api_token_params

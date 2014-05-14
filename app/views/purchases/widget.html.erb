@@ -2,7 +2,6 @@
   <div class="panel-heading">
     <h3 class="panel-title"><%= @title %>!</h3>
   </div>
-  <div class="panel-body">
 
 <% if  @widget.cart[:count] > 0%>
   <table class="table">
@@ -14,8 +13,9 @@
   <% end -%>
   </table>
   <% else %>
-  <p>В корзине пусто...</p>
-<% end -%>
-
+  <div class="panel-body">
+    <p>В корзине пусто...</p>
   </div>
+  <% end -%>
+
 </div>
