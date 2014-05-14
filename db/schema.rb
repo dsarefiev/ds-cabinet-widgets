@@ -21,7 +21,7 @@ ActiveRecord::Schema.define(version: 20140410113124) do
     t.string   "client_siebel_id"
     t.integer  "owner_id"
     t.integer  "topic_id"
-    t.string   "type"
+    t.string   "widget_type"
     t.string   "status"
     t.text     "metadata"
     t.datetime "created_at"
