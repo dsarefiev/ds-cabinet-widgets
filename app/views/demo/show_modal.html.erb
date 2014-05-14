@@ -13,10 +13,10 @@
     domain: '<%= @domain %>',
     path: '/purchases/new',
     params: {
-      owner_id: 1,
+      owner_id: <%= @user[:id] %>,
       api_token: '<%= @user[:api_token] %>',
-      client_id: 2,
-      client_siebel_id: 'UAS100397'
+      client_id: <%= @client[:id] %>,
+      client_siebel_id: '<%= @client[:siebel_id] %>'
     }
   };
   createWidget('widget_new', widgetOptions);

@@ -1,29 +1,33 @@
 class DemoController < ApplicationController
-  before_action :get_domain
+  before_action :get_demo_data
 
   def index
 
   end
 
-  def get_concierge
+  def get_demo_data
     @user = {
+      id: 1,
       login: '+71111111120', # concierge
       siebel_id: '1-1ORN0Y',
       integration_id: 'UAS100452',
       api_token: 'd3cbe27b945f01e2d60188b94e9cb4fe4a1f69ade74094927ffd58e5b7045503'
     }
-  end
-
-  def get_domain
+    @client = {
+      id: 2,
+      siebel_id: 'UAS100397'
+    }
+    widget = Widgets.last_active.find_by_client_siebel_id @client[:siebel_id]
+    @topic = {
+      id: widget.topic_id
+    }
     @domain = Rails.configuration.widget_domain
   end
 
   def concierge
-    get_concierge
   end
 
   def show_modal
-    get_concierge
     render layout: false
   end
 
