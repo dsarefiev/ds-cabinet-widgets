@@ -54,6 +54,8 @@ DsCabinetWidgets::Application.configure do
   config.cart_curl_verbose = true
 
   # CABINET settings
+  config.cabinet_url = 'http://dev-delo.sredda.ru'
+  config.cabinet_curl_verbose = true
 
   # Authentication settings
   config.auth_domain = '.sredda.ru'
