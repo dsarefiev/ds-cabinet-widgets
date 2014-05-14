@@ -19,7 +19,7 @@ class DemoController < ApplicationController
     }
     widget = Widgets.last_active.find_by_client_siebel_id @client[:siebel_id]
     @topic = {
-      id: widget.topic_id
+      id: widget ? widget.topic_id : 1
     }
     @domain = Rails.configuration.widget_domain
   end

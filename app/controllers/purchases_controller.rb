@@ -72,8 +72,12 @@ class PurchasesController < ApplicationController
     else
       @widget = Widgets.last_active.take
     end
-    @title = "Виджет клиента"
-    render :widget
+    if @widget
+      @title = "Виджет клиента"
+      render :widget
+    else
+      raise ActiveRecord::RecordNotFound
+    end
   rescue ActiveRecord::RecordNotFound
     @error_message = 'Виджет не найден'
     render :error
