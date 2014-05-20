@@ -5,13 +5,17 @@
 
 <% if  @widget.cart[:count] > 0%>
   <table class="table">
-  <% @widget.cart[:items].each do |item| %>
     <tr>
-      <td><%= item['Name'] %></td>
-      <td><%= item['Price'] %> р.</td>
+      <td><%= @widget.cart[:item]['Name'] %></td>
+      <td><%= @widget.cart[:product]['BillingPeriod']['Name'] %></td>
+      <td><%= @widget.cart[:item]['Price'] %> р.</td>
     </tr>
-  <% end -%>
   </table>
+
+  <div class="panel-body">
+  <%= @widget.cart_info.inspect %>
+  </div>
+
   <% else %>
   <div class="panel-body">
     <p>В корзине пусто...</p>
