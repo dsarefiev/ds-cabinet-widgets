@@ -48,7 +48,8 @@ class PurchasesController < ApplicationController
     widget = {
       widget_type: 'purchase',
       status: 'new',
-      metadata: params[:offering].to_json
+      metadata: params[:offering].to_json,
+      products: @cart_response['ProductIds'].join(',')
     }
     @widget = Widgets.create(widget.merge(widget_params))
     @title = "Предложение отправлено #{@widget.id}"
