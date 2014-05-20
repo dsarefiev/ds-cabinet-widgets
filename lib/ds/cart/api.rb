@@ -30,11 +30,21 @@ module Ds
       end
     end
 
-
     def self.get_cart_items(user_id)
       url = 'api/items'
       request = { userId: user_id }
       response = Ds::Cart::Query.execute(url, request: request, method: :get)
+      case response[:code]
+        when 200 then JSON.parse(response[:body])
+        when 500 then raise InternalError, JSON.parse(response[:body])["ErrorMessage"]
+        else raise InternalError
+      end
+    end
+
+    def self.get_product(product_id)
+      url = 'api/products'
+      # request = { id: product_id }
+      response = Ds::Cart::Query.execute(url, request: product_id, method: :get)
       case response[:code]
         when 200 then JSON.parse(response[:body])
         when 500 then raise InternalError, JSON.parse(response[:body])["ErrorMessage"]

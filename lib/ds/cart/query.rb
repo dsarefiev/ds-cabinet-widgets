@@ -11,7 +11,11 @@ module Ds
       request = options[:request] || {}
       method = options[:method] || :get
 
-      url += '?' + request.to_param if (method == :get || method == :delete) && !request.empty?
+      if request.is_a?(Hash)
+        url += '?' + request.to_param if (method == :get || method == :delete) && !request.empty?
+      else
+        url += '/' + request.to_s
+      end
       client = client(url)
 
       case method

@@ -12,4 +12,8 @@ class Widgets < ActiveRecord::Base
     end
   end
 
+  def cart_products
+    Ds::Cart::Api.get_product(products)
+  end
+
 end
