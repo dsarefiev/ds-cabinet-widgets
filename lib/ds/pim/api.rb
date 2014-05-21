@@ -29,8 +29,17 @@ module Ds
     end
 
     def self.get_product_offering_prices(offering_id)
-      # self.class.get("#{PIM_SERVER}productOffering/" + id + "/offeringPrices").body
       url = 'productOffering/' + offering_id + '/offeringPrices'
+      response = Ds::Pim::Query.execute(url)
+      case response[:code]
+        when 200 then JSON.parse(response[:body])
+        when 400 then raise InvalidCredentials
+        else raise InternalError
+      end
+    end
+
+    def self.get_product_offering_price(offering_id, price_id)
+      url = 'productOffering/' + offering_id + '/offeringPrices/' + price_id
       response = Ds::Pim::Query.execute(url)
       case response[:code]
         when 200 then JSON.parse(response[:body])
