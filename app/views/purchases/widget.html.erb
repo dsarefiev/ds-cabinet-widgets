@@ -3,17 +3,19 @@
     <h3 class="panel-title"><%= @title %>!</h3>
   </div>
 
-<% if  @widget.cart[:count] > 0%>
+<% if @widget.order_products.size > 0 %>
   <table class="table">
+    <% @widget.order_products.each do |product| %>
     <tr>
-      <td><%= @widget.cart[:item]['Name'] %></td>
-      <td><%= @widget.cart[:product]['BillingPeriod']['Name'] %></td>
-      <td><%= @widget.cart[:item]['Price'] %> р.</td>
+      <td><%= product[:offering]['Name'] %></td>
+      <td><%= product[:price]['Name'] %></td>
     </tr>
+    <% end %>
   </table>
 
   <div class="panel-body">
-  <%= @widget.cart_info.inspect %>
+    <p> Сумма заказа: <%= @widget.order['Amount'] %> р.</p>
+    <button type="button" class="btn btn-success" onclick="OpenPayWindow('<%= @widget.target_url %> ')">Оплатить</button>
   </div>
 
   <% else %>

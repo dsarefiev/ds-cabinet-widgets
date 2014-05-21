@@ -15,18 +15,18 @@
   <%= hidden_field_tag(:client_id, @widget[:client_id]) %>
   <%= hidden_field_tag(:owner_id, @widget[:owner_id]) %>
   <%= hidden_field_tag(:client_siebel_id, @widget[:client_siebel_id]) %>
+  <%= hidden_field_tag(:client_siebel_id, @widget[:client_siebel_id]) %>
 
-  <% @offerings.each do |offering| %>
+  <% @products.each do |product| %>
   <div class="form-group">
-    <label for="ClientId">Предложение "<%= offering[:product]["Name"] %>"</label>
-    <select class="form-control" id="OffPrices" name="offering[<%= offering[:product]["Id"] %>]">
-    <% offering[:prices].each do |price| %>
+    <label for="ClientId">Предложение "<%= product[:offering]["Name"] %>"</label>
+    <select class="form-control" id="OffPrices" name="offerings[<%= product[:offering]["Id"] %>]">
+    <% product[:prices].each do |price| %>
       <option value="<%= price["Id"] %>"><%= price["Name"] %></option>
     <% end %>
     </select>
   </div>
   <% end %>
-
   <button type="submit" class="btn btn-warning">Сделать предложение</button>
 <% end %>
 

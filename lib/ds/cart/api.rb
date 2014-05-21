@@ -41,10 +41,53 @@ module Ds
       end
     end
 
+    def self.get_cart_item(item_id)
+      url = 'api/items'
+      response = Ds::Cart::Query.execute(url, request: item_id, method: :get)
+      case response[:code]
+        when 200 then JSON.parse(response[:body])
+        when 500 then raise InternalError, JSON.parse(response[:body])["ErrorMessage"]
+        else raise InternalError
+      end
+    end
+
     def self.get_product(product_id)
       url = 'api/products'
-      # request = { id: product_id }
+      request = { id: product_id }
       response = Ds::Cart::Query.execute(url, request: product_id, method: :get)
+      case response[:code]
+        when 200 then JSON.parse(response[:body])
+        when 500 then raise InternalError, JSON.parse(response[:body])["ErrorMessage"]
+        else raise InternalError
+      end
+    end
+
+    def self.get_products(offering_id)
+      url = 'api/products'
+      # request = { offeringId: offering_id }
+      request = { userId: 'UAS100397' }
+      response = Ds::Cart::Query.execute(url, request: request, method: :get)
+      case response[:code]
+        when 200 then JSON.parse(response[:body])
+        when 500 then raise InternalError, JSON.parse(response[:body])["ErrorMessage"]
+        else raise InternalError
+      end
+    end
+
+    def self.get_order(order_id)
+      url = 'api/orders'
+      response = Ds::Cart::Query.execute(url, request: order_id, method: :get)
+      case response[:code]
+        when 200 then JSON.parse(response[:body])
+        when 500 then raise InternalError, JSON.parse(response[:body])["ErrorMessage"]
+        else raise InternalError
+      end
+    end
+
+    def self.get_orders(user_id)
+      url = 'api/orders'
+      request =  { userId: user_id }
+      response = Ds::Cart::Query.execute(url, request: request, method: :get)
       case response[:code]
         when 200 then JSON.parse(response[:body])
         when 500 then raise InternalError, JSON.parse(response[:body])["ErrorMessage"]
@@ -78,6 +121,27 @@ module Ds
         when 204 then true
         when 500 then raise InternalError, JSON.parse(response[:body])["ErrorMessage"]
         else raise InternalError, 'Unknown error'
+      end
+    end
+
+    def self.add_order(user_id, offerings)
+      url = 'api/orders'
+      request = {
+          Options: 3,
+          ChoosePayer: true,
+          UserId: user_id,
+          Offerings: offerings,
+          Promocode: nil,
+          SuccessUrl: "http://localhost:60001/Product/Details/1",
+          ErrorUrl: "http://localhost:60001/Product/PaymentError",
+          PayerCompanyId: nil,
+          SellerCompanyId:nil
+        }
+      response = Ds::Cart::Query.execute(url, request: request, method: :post)
+      case response[:code]
+        when 201 then JSON.parse(response[:body])
+        when 500 then raise Error, JSON.parse(response[:body])["ErrorMessage"]
+        else raise InternalError
       end
     end
 

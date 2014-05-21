@@ -18,8 +18,11 @@ class Products
     Ds::Pim::Api.get_product_offering_prices(offering_id)
   end
 
-  def self.add_to_cart(options = nil)
+  def price(price_id)
+    Ds::Pim::Api.get_product_offering_price(offering_id, price_id)
+  end
 
+  def self.add_to_cart(options = nil)
     return false if !options
 
     offering = {
@@ -30,6 +33,27 @@ class Products
     }
 
     Ds::Cart::Api.add_to_cart(offering, Rails.configuration.pim_product_url)
+  end
+
+  def self.add_order(options = nil)
+    offerings = []
+    options['offerings'].each do |offering_id, offering_price_id|
+      offerings << {
+        Offering: {
+          OfferingId: offering_id,
+          OfferingPriceId: offering_price_id,
+          Characteristics: [],
+          ClientKey: options[:client_siebel_id],
+        },
+        SerializedOffering: nil,
+        ProductsForUpdate: nil,
+        ArticleUrl: Rails.configuration.pim_product_url,
+        ArticleId: nil,
+        MerchantId: nil,
+        Promocode: nil
+      }
+    end
+    Ds::Cart::Api.add_order(options[:client_siebel_id], offerings)
   end
 
   def self.clear_cart(client_siebel_id)

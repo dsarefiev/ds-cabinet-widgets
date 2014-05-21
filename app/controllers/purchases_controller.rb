@@ -9,50 +9,54 @@ class PurchasesController < ApplicationController
   def new
 
     # Очистка корзины если она не пустая
-    if params[:with] == 'clear' && params[:client_siebel_id]
-      Products.clear_cart(params[:client_siebel_id])
-    end
+    # if params[:with] == 'clear' && params[:client_siebel_id]
+      # Products.clear_cart(params[:client_siebel_id])
+    # end
 
     # TODO проверка валидности api_token
 
     @widget = Widgets.new(widget_params)
-    if @widget.cart[:count] > 0
-      @warning_message = 'В корзине клиента уже есть предложения: ' + @widget.cart[:items].first['Name']
-      @params = params.merge({with:'clear'}).to_param
-    else
+    # TODO проверка на существование заказа
+    # if @widget.cart[:count] > 0
+    #   @warning_message = 'В корзине клиента уже есть предложения: ' + @widget.cart[:items].first['Name']
+    #   @params = params.merge({with:'clear'}).to_param
+    # else
+
       # Загружаем Предложения и цены
-      @offerings = []
+      @products = []
       Products.offerings.each do |offering_id|
         product = Products.new(offering_id)
-        @offerings << {
-          :product => product.offering,
-          :prices => product.prices
+        @products << {
+          offering: product.offering,
+          prices: product.prices
         }
       end
       @api_token = api_token_params[:api_token]
-    end
+
     render :concierge
   end
 
   def create
 
     # Кладем товар в корзину
-    cart_option = {
-      :offering_id => params[:offering].keys.first,
-      :offering_price_id => params[:offering].values.first,
-      :client_siebel_id => params[:client_siebel_id]
-    }
-    @cart_response = Products.add_to_cart(cart_option)
+    # cart_option = {
+    #   :offering_id => params[:offering].keys.first,
+    #   :offering_price_id => params[:offering].values.first,
+    #   :client_siebel_id => params[:client_siebel_id]
+    # }
 
+    # Создаем Order
+    order_response = Products.add_order(order_params)
     # Сохраняем виджет в базу
     widget = {
       widget_type: 'purchase',
       status: 'new',
-      metadata: params[:offering].to_json,
-      products: @cart_response['ProductIds'].join(',')
+      order_id: order_response['OrderId'],
+      target_url: order_response['TargetUrl'],
+      offerings: params[:offerings].to_json
     }
     @widget = Widgets.create(widget.merge(widget_params))
-    @title = "Предложение отправлено #{@widget.id}"
+    @title = "Предложение отправлено"
 
     # Создаем виджет в чате клиента через API
     topic = Ds::Cabinet::Api.create_topic(@widget, api_token_params[:api_token])
@@ -87,15 +91,19 @@ class PurchasesController < ApplicationController
   private
 
   def widget_params
-      params.permit(:client_id, :client_siebel_id, :owner_id)
+    params.permit(:client_id, :client_siebel_id, :owner_id)
+  end
+
+  def order_params
+    params.permit(:client_siebel_id, offerings: params[:offerings].try(:keys))
   end
 
   def topic_params
-      params.permit(:topic_id)
+    params.permit(:topic_id)
   end
 
   def api_token_params
-      params.permit(:api_token)
+    params.permit(:api_token)
   end
 
 end

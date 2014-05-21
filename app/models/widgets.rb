@@ -4,8 +4,9 @@ class Widgets < ActiveRecord::Base
 
   def cart
     @cart ||= begin
-      product_info = Ds::Cart::Api.get_product(products)
       summary = Ds::Cart::Api.get_cart_summary(client_siebel_id)
+
+      product_info = Ds::Cart::Api.get_product(products)
       {
         count: summary['Count'],
         product: product_info['Product'],
@@ -15,15 +16,26 @@ class Widgets < ActiveRecord::Base
     end
   end
 
-  def cart_products
-    Ds::Cart::Api.get_product(products)
+  def order_offerings
+    JSON.parse(offerings)
   end
 
-  def cart_info
-    {
-      items: Ds::Cart::Api.get_cart_items(client_siebel_id),
-      products: Ds::Cart::Api.get_product(products)
-    }
+  def order_products
+    @order_products ||= begin
+      result = []
+      order_offerings.each do |offering_id, offering_price_id|
+        product = Products.new(offering_id)
+        result << {
+            offering: product.offering,
+            price: product.price(offering_price_id)
+          }
+      end
+      result
+    end
+  end
+
+  def order
+    @order ||= Ds::Cart::Api.get_order(order_id)
   end
 
 end
