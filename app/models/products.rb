@@ -29,7 +29,7 @@ class Products
       OfferingId: options[:offering_id],
       OfferingPriceId: options[:offering_price_id],
       Characteristics: [],
-      ClientKey: options[:client_siebel_id],
+      ClientKey: options[:client_integration_id],
     }
 
     Ds::Cart::Api.add_to_cart(offering, Rails.configuration.pim_product_url)
@@ -43,7 +43,7 @@ class Products
           OfferingId: offering_id,
           OfferingPriceId: offering_price_id,
           Characteristics: [],
-          ClientKey: options[:client_siebel_id],
+          ClientKey: options[:client_integration_id],
         },
         SerializedOffering: nil,
         ProductsForUpdate: nil,
@@ -53,14 +53,14 @@ class Products
         Promocode: nil
       }
     end
-    Ds::Cart::Api.add_order(options[:client_siebel_id], offerings)
+    Ds::Cart::Api.add_order(options[:client_integration_id], offerings)
   end
 
-  def self.clear_cart(client_siebel_id)
-    summary = Ds::Cart::Api.get_cart_summary(client_siebel_id)
+  def self.clear_cart(client_integration_id)
+    summary = Ds::Cart::Api.get_cart_summary(client_integration_id)
 
     if summary['Count'] > 0
-      items = Ds::Cart::Api.get_cart_items(client_siebel_id)
+      items = Ds::Cart::Api.get_cart_items(client_integration_id)
       items.each do |item|
         Ds::Cart::Api.cart_delete(item['CartItemId'])
       end

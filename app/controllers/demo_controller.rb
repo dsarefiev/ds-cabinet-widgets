@@ -15,9 +15,9 @@ class DemoController < ApplicationController
     }
     @client = {
       id: 2,
-      siebel_id: 'UAS100397'
+      integration_id: 'UAS100397'
     }
-    widget = Widgets.last_active.find_by_client_siebel_id @client[:siebel_id]
+    widget = Widgets.last_active.find_by_client_integration_id @client[:integration_id]
     @topic = {
       id: widget ? widget.topic_id : 1
     }

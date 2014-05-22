@@ -11,14 +11,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140521132658) do
+ActiveRecord::Schema.define(version: 20140522111922) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "widgets", force: true do |t|
     t.integer  "client_id"
-    t.string   "client_siebel_id"
+    t.string   "client_integration_id"
     t.integer  "owner_id"
     t.integer  "topic_id"
     t.string   "widget_type"

@@ -14,9 +14,7 @@
   <%= hidden_field_tag(:api_token, @api_token) %>
   <%= hidden_field_tag(:client_id, @widget[:client_id]) %>
   <%= hidden_field_tag(:owner_id, @widget[:owner_id]) %>
-  <%= hidden_field_tag(:client_siebel_id, @widget[:client_siebel_id]) %>
-  <%= hidden_field_tag(:client_siebel_id, @widget[:client_siebel_id]) %>
-
+  <%= hidden_field_tag(:client_integration_id, @widget[:client_integration_id]) %>
   <% @products.each do |product| %>
   <div class="form-group">
     <label for="ClientId">Предложение "<%= product[:offering]["Name"] %>"</label>

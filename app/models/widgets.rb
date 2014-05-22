@@ -4,7 +4,7 @@ class Widgets < ActiveRecord::Base
 
   def cart
     @cart ||= begin
-      summary = Ds::Cart::Api.get_cart_summary(client_siebel_id)
+      summary = Ds::Cart::Api.get_cart_summary(client_integration_id)
 
       product_info = Ds::Cart::Api.get_product(products)
       {

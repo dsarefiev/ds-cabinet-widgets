@@ -73,7 +73,7 @@ class PurchasesController < ApplicationController
     if topic_params
       @widget = Widgets.last_active.find_by topic_params
     elsif current_user
-      @widget = Widgets.last_active.find_by_client_siebel_id current_user.user_id
+      @widget = Widgets.last_active.find_by_client_integration_id current_user.user_id
     else
       @widget = Widgets.last_active.take
     end
@@ -91,11 +91,12 @@ class PurchasesController < ApplicationController
   private
 
   def widget_params
-    params.permit(:client_id, :client_siebel_id, :owner_id)
+    params[:client_integration_id] = params[:client_siebel_id] if params[:client_siebel_id]
+    params.permit(:client_id, :client_integration_id, :owner_id)
   end
 
   def order_params
-    params.permit(:client_siebel_id, offerings: params[:offerings].try(:keys))
+    params.permit(:client_integration_id, offerings: params[:offerings].try(:keys))
   end
 
   def topic_params
