@@ -56,8 +56,7 @@ DsCabinetWidgets::Application.configure do
   config.uas_curl_verbose = true
 
   # PIM settings
-  config.pim_url = 'https://pim.sredda.ru/'
-  config.pim_server = 'https://pim.sredda.ru/'
+  config.pim_url = 'https://pim.sredda.ru'
   config.pim_sertificate = "#{Rails.root}/certs/ds_admin.pem"
   config.pim_product_offerings = ['5336743']
   config.pim_product_url = 'http://dsstore.dasreda.ru/'
