@@ -49,6 +49,12 @@ DsCabinetWidgets::Application.configure do
 
   config.asset_symlink = { 'widget.js' => 'lib/widget.js' }
 
+  # Set to :debug to see everything in the log.
+  config.log_level = :info
+
+  # Use default logging formatter so that PID and timestamp are not suppressed.
+  config.log_formatter = ::Logger::Formatter.new
+
   # UAS settings
   config.uas_url = 'https://pim.sredda.ru/authentication'
   config.uas_sertificate = "#{Rails.root}/certs/ds_admin.pem"

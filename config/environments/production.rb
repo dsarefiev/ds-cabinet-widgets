@@ -59,7 +59,7 @@ DsCabinetWidgets::Application.configure do
 
   # Precompile additional assets.
   # application.js, application.css, and all non-JS/CSS in app/assets folder are already added.
-  config.assets.precompile += %w( widget.js )
+  config.assets.precompile += %w( demo.js widget.js )
 
   config.asset_symlink = { 'widget.js' => 'lib/widget.js' }
 
@@ -81,10 +81,34 @@ DsCabinetWidgets::Application.configure do
   config.log_formatter = ::Logger::Formatter.new
 
   # UAS settings
-  config.uas_url = 'https://pim.sredda.ru:4443/authentication'
+  config.uas_url = 'https://pim.sredda.ru/authentication'
   config.uas_sertificate = "#{Rails.root}/certs/ds_admin.pem"
-  config.uas_query_log = false
+  config.uas_query_log = true
+  config.uas_curl_verbose = true
+
+  # PIM settings
+  config.pim_url = 'https://pim.sredda.ru'
+  config.pim_sertificate = "#{Rails.root}/certs/ds_admin.pem"
+  config.pim_product_offerings = ['5336743']
+  config.pim_product_url = 'http://dsstore.dasreda.ru/'
+  config.pim_query_log = true
+  config.pim_curl_verbose = true
+
+  # CART settings
+  config.cart_url = 'http://cart.sredda.ru'
+  config.cart_sertificate = "#{Rails.root}/certs/ds_admin.pem"
+  config.cart_summary_url = 'http://cart.sredda.ru/api/items/summary'
+  config.cart_merchant_id = '100004'
+  config.cart_merchant_password = 'password4'
+  config.cart_query_log = true
+  config.cart_curl_verbose = true
+
+  # CABINET settings
+  config.cabinet_url = 'http://legko.li'
+  config.cabinet_curl_verbose = true
+
+  config.widget_domain = 'widgets.legko.li'
 
   # Authentication settings
-  config.auth_domain = '.dasreda.ru'
+  config.auth_domain = '.legko.li'
 end

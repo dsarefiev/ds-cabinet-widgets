@@ -40,6 +40,10 @@ group :development do
   gem 'pg'
 end
 
+group :production do
+  gem 'pg'
+end
+
 # Helpers
 gem 'simple_form'
 
