@@ -35,27 +35,6 @@ class Products
     Ds::Cart::Api.add_to_cart(offering, Rails.configuration.pim_product_url)
   end
 
-  def self.add_order(options = nil)
-    offerings = []
-    options['offerings'].each do |offering_id, offering_price_id|
-      offerings << {
-        Offering: {
-          OfferingId: offering_id,
-          OfferingPriceId: offering_price_id,
-          Characteristics: [],
-          ClientKey: options[:client_integration_id],
-        },
-        SerializedOffering: nil,
-        ProductsForUpdate: nil,
-        ArticleUrl: Rails.configuration.pim_product_url,
-        ArticleId: nil,
-        MerchantId: nil,
-        Promocode: nil
-      }
-    end
-    Ds::Cart::Api.add_order(options[:client_integration_id], offerings)
-  end
-
   def self.clear_cart(client_integration_id)
     summary = Ds::Cart::Api.get_cart_summary(client_integration_id)
 
