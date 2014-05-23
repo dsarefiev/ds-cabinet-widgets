@@ -63,7 +63,7 @@ class PurchasesController < ApplicationController
     if topic
       @widget.update_attributes(topic_id: topic['id'], status: 'chated')
     end
-    render :widget
+    redirect_to :action => 'show'
   rescue Ds::Cart::Error => e
     @error_message = e.message
     render :error
@@ -79,6 +79,7 @@ class PurchasesController < ApplicationController
     end
     if @widget
       @title = "Виджет клиента"
+      @current_user_phone = @current_user.login[-10, 10]
       render :widget
     else
       raise ActiveRecord::RecordNotFound

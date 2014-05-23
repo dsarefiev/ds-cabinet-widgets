@@ -15,7 +15,13 @@
 
   <div class="panel-body">
     <p> Сумма заказа: <%= @widget.order['Amount'] %> р.</p>
-    <button type="button" class="btn btn-success" onclick="OpenPayWindow('<%= @widget.target_url %> ')">Оплатить</button>
+    <form action="<%= @widget.target_url %>" method="post" target="_blank">
+        <input type="hidden" name="PaymentType" value="qiwi">
+        <input type="hidden" name="Qiwi.PayerPhone" value="<%= @current_user_phone %>">
+        <input type="hidden" name="Receipt.FIO" value="<%= @current_user.first_name %> <%= @current_user.last_name %>">
+        <input type="hidden" name="Receipt.Address" value="">
+        <button type="submit" class="btn btn-warning">Оплатить</button>
+    </form>
   </div>
 
   <% else %>
