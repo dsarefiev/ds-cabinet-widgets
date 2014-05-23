@@ -70,10 +70,8 @@ class PurchasesController < ApplicationController
   def show
     if topic_params
       @widget = Widgets.last_active.find_by topic_params
-    elsif current_user
-      @widget = Widgets.last_active.find_by_client_integration_id current_user.user_id
-    else
-      @widget = Widgets.last_active.take
+    elsif params[:id]
+      @widget = Widgets.find params[:id]
     end
     if @widget
       @title = "Виджет клиента"
