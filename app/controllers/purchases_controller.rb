@@ -61,7 +61,7 @@ class PurchasesController < ApplicationController
         topic_id: topic['id'],
         status: 'chated')
     end
-    redirect_to :action => 'show'
+    redirect_to :action => 'show', :id => @widget.id
   rescue Ds::Cart::Error => e
     @error_message = e.message
     render :error
