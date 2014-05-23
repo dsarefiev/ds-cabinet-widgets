@@ -37,19 +37,12 @@ class PurchasesController < ApplicationController
   end
 
   def create
-
-    # Кладем товар в корзину
-    # cart_option = {
-    #   :offering_id => params[:offering].keys.first,
-    #   :offering_price_id => params[:offering].values.first,
-    #   :client_siebel_id => params[:client_siebel_id]
-    # }
-
     # Создаем Order
     order_response = Products.add_order(order_params)
     # Сохраняем виджет в базу
     widget = {
       widget_type: 'purchase',
+      owner_integration_id: @current_user.user_id,
       status: 'new',
       order_id: order_response['OrderId'],
       target_url: order_response['TargetUrl'],

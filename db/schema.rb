@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140522111922) do
+ActiveRecord::Schema.define(version: 20140523165729) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -30,6 +30,7 @@ ActiveRecord::Schema.define(version: 20140522111922) do
     t.string   "order_id"
     t.string   "target_url"
     t.text     "offerings"
+    t.string   "owner_integration_id"
   end
 
 end
