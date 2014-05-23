@@ -124,19 +124,15 @@ module Ds
       end
     end
 
-    def self.add_order(user_id, offerings)
+    def self.add_order(options)
       url = 'api/orders'
-      request = {
+      request = options.merge({
           Options: 3,
           ChoosePayer: true,
-          UserId: user_id,
-          Offerings: offerings,
           Promocode: nil,
-          SuccessUrl: "http://localhost:60001/Product/Details/1",
-          ErrorUrl: "http://localhost:60001/Product/PaymentError",
           PayerCompanyId: nil,
           SellerCompanyId:nil
-        }
+        })
       response = Ds::Cart::Query.execute(url, request: request, method: :post)
       case response[:code]
         when 201 then JSON.parse(response[:body])

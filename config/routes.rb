@@ -2,10 +2,15 @@ DsCabinetWidgets::Application.routes.draw do
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
+  Rails.application.routes.default_url_options[:host] = 'http://' + Rails.configuration.widget_domain
+
   # You can have the root of your site routed with "root"
   # root 'welcome#index'
 
-  resources :purchases, only: [:new, :create, :show]
+  resources :purchases, only: [:new, :create, :show] do
+    get 'pay_success'
+    get 'pay_error'
+  end
 
   get ':controller(/:action(/:id))'
 

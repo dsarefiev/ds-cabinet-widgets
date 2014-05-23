@@ -37,24 +37,29 @@ class PurchasesController < ApplicationController
   end
 
   def create
-    # Создаем Order
-    order_response = Products.add_order(order_params)
+
     # Сохраняем виджет в базу
     widget = {
       widget_type: 'purchase',
       owner_integration_id: @current_user.user_id,
       status: 'new',
-      order_id: order_response['OrderId'],
-      target_url: order_response['TargetUrl'],
       offerings: params[:offerings].to_json
     }
     @widget = Widgets.create(widget.merge(widget_params))
-    @title = "Предложение отправлено"
 
+    # Создаем Order
+    order_response = @widget.add_order(order_params)
+    if order_response
+      @widget.update_attributes(
+        order_id: order_response['OrderId'],
+        target_url: order_response['TargetUrl'])
+    end
     # Создаем виджет в чате клиента через API
     topic = Ds::Cabinet::Api.create_topic(@widget, api_token_params[:api_token])
     if topic
-      @widget.update_attributes(topic_id: topic['id'], status: 'chated')
+      @widget.update_attributes(
+        topic_id: topic['id'],
+        status: 'chated')
     end
     redirect_to :action => 'show'
   rescue Ds::Cart::Error => e
