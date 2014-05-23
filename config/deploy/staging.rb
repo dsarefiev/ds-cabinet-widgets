@@ -8,7 +8,20 @@ role :app, %w{aaarefiev@178.159.255.148:8022}
 role :web, %w{aaarefiev@178.159.255.148:8022}
 role :db,  %w{aaarefiev@178.159.255.148:8022}
 
+set :application, 'ds-cabinet-widgets'
 set :deploy_to, '/var/www/delo-widgets-dev'
+
+namespace :deploy do
+  task :setup_pg do
+    on roles(:app), in: :sequence, wait: 5 do
+      within release_path do
+        execute :bundle, "config build.pg --with-pg-config=/usr/pgsql-9.2/bin/pg_config"
+      end
+    end
+  end
+end
+
+after 'deploy:updated', 'deploy:setup_pg'
 
 # Extended Server Syntax
 # ======================
