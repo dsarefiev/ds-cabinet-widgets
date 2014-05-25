@@ -1,0 +1,31 @@
+@import url("//fonts.googleapis.com/css?family=Open+Sans:300,400,600,700");
+
+body {
+ 	font-family:'Open Sans',"HelveticaNeue", "Helvetica Neue", Helvetica, Arial,sans-serif;
+	color: #000;
+	font-size: 12px;
+	font-weight: normal;
+}
+
+.panel {
+	width: 60%;
+	border-color: #2bc8c3 !important;
+	border: solid 2px;
+}
+
+
+.panel table td {
+	border-color: #2bc8c3 !important;
+	font-size: 14px;
+}
+
+.panel table td .glyphicon {
+	color: #2bc8c3;
+}
+
+.btn-warning, .bg-warning, .btn-warning.btn-circle > i{color:#fff;background-color:#FFA316}
+.btn-warning:hover, .btn-warning:focus, .btn-warning:active, .btn-warning.active, .btn-warning.btn-circle:hover > i{color:#fff;background-color:#FFB518;}
+
+.panel .btn-warning {
+	font-size: 13px;
+}

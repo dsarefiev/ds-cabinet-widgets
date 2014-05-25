@@ -1,26 +1,27 @@
-<div class="panel panel-success">
-  <div class="panel-heading">
-    <h3 class="panel-title"><%= @title %>!</h3>
-  </div>
+<div class="panel">
 
 <% if @widget.order_products.size > 0 %>
   <table class="table">
     <% @widget.order_products.each do |product| %>
     <tr>
-      <td><%= product[:offering]['Name'] %></td>
-      <td><%= product[:price]['Name'] %></td>
+      <td><span class="glyphicon glyphicon-ok"></span> <%= product[:offering]['Name'] %></td>
+    </tr>
+    <tr>
+      <td><span class="glyphicon glyphicon-ok"></span> Период обслуживания - <%= product[:price]['Name'] %></td>
+    </tr>
+    <tr>
+      <td> <span class="text-muted">Цена:</span> <%= number_to_currency(@widget.order['Amount'], locale: :ru, precision: 0) %></td>
     </tr>
     <% end %>
   </table>
 
   <div class="panel-body">
-    <p> Сумма заказа: <%= @widget.order['Amount'] %> р.</p>
     <form action="<%= @widget.target_url %>" method="post" target="_blank">
         <input type="hidden" name="PaymentType" value="qiwi">
         <input type="hidden" name="Qiwi.PayerPhone" value="<%= @current_user_phone %>">
         <input type="hidden" name="Receipt.FIO" value="<%= @current_user.first_name %> <%= @current_user.last_name %>">
         <input type="hidden" name="Receipt.Address" value="">
-        <button type="submit" class="btn btn-warning">Оплатить</button>
+        <button type="submit" class="btn btn-warning btn-sm"> Оплатить </button>
     </form>
   </div>
 
