@@ -48,7 +48,7 @@ class Widgets < ActiveRecord::Base
       else
         false
     end
-    update_attributes(:status, status) if status
+    update_attributes(status: status) if status
   end
 
   def add_order(options = nil)
