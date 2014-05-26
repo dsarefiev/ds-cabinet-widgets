@@ -7,10 +7,9 @@ DsCabinetWidgets::Application.routes.draw do
   # You can have the root of your site routed with "root"
   # root 'welcome#index'
 
-  resources :purchases, only: [:new, :create, :show] do
-    get 'pay_success'
-    get 'pay_error'
-  end
+  resources :purchases, only: [:new, :create, :show]
+  get 'purchases/:id/pay_success' => 'purchases#update_status'
+  get 'purchases/:id/pay_error' => 'purchases#update_status'
 
   get ':controller(/:action(/:id))'
 

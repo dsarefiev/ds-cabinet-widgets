@@ -68,10 +68,10 @@ class PurchasesController < ApplicationController
   end
 
   def show
-    if topic_params
+    if topic_params[:topic_id]
       @widget = Widgets.last_active.find_by topic_params
-    elsif params[:id]
-      @widget = Widgets.find params[:id]
+    elsif id_params[:id]
+      @widget = Widgets.find id_params[:id]
     end
     if @widget
       @title = "Виджет клиента"
@@ -85,7 +85,19 @@ class PurchasesController < ApplicationController
     render :error
   end
 
+  # pay_success pay_error
+  def update_status
+    @widget = Widgets.find id_params[:id]
+    @widget.update_status_from_order
+    redirect_to :action => 'show', :id => @widget.id
+  end
+
+
   private
+
+  def id_params
+    params.permit(:id)
+  end
 
   def widget_params
     params[:client_integration_id] = params[:client_siebel_id] if params[:client_siebel_id]

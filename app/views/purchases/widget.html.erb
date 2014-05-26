@@ -15,6 +15,7 @@
     <% end %>
   </table>
 
+  <% if @widget.status == 'chated' %>
   <div class="panel-body">
     <form action="<%= @widget.target_url %>" method="post" target="_blank">
         <input type="hidden" name="PaymentType" value="qiwi">
@@ -24,6 +25,9 @@
         <button type="submit" class="btn btn-warning btn-sm"> Оплатить </button>
     </form>
   </div>
+  <% else %>
+    <div class="panel-footer"><strong>Заказ оплачен</strong></div>
+  <% end -%>
 
   <% else %>
   <div class="panel-body">

@@ -1,6 +1,6 @@
 class Widgets < ActiveRecord::Base
 
-  scope :last_active, -> { where(widget_type: 'purchase', status: 'chated').order("created_at DESC") }
+  scope :last_active, -> { where(widget_type: 'purchase').order("created_at DESC") }
 
   def cart
     @cart ||= begin
@@ -36,6 +36,19 @@ class Widgets < ActiveRecord::Base
 
   def order
     @order ||= Ds::Cart::Api.get_order(order_id)
+  end
+
+  def update_status_from_order
+    order = Ds::Cart::Api.get_order(order_id)
+    status = case Ds::Cart::Base.order_statuses[order['OrderStatus']]
+      when 'PaymentSucess'
+        'payment_sucess'
+      when 'PaymentError'
+        'payment_error'
+      else
+        false
+    end
+    update_attributes(:status, status) if status
   end
 
   def add_order(options = nil)
