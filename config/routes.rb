@@ -8,8 +8,8 @@ DsCabinetWidgets::Application.routes.draw do
   # root 'welcome#index'
 
   resources :purchases, only: [:new, :create, :show]
-  get 'purchases/:id/pay_success' => 'purchases#update_status'
-  get 'purchases/:id/pay_error' => 'purchases#update_status'
+  get 'purchases/:id/pay_success' => 'purchases#update_status', as: 'purchase_pay_success'
+  get 'purchases/:id/pay_error' => 'purchases#update_status', as: 'purchase_pay_error'
 
   get ':controller(/:action(/:id))'
 
