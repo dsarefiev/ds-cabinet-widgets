@@ -1,38 +1,40 @@
-<div class="panel">
-
+<div class="payment">
+<ul>
 <% if @widget.order_products.size > 0 %>
-  <table class="table">
-    <% @widget.order_products.each do |product| %>
-    <tr>
-      <td><span class="glyphicon glyphicon-ok"></span> <%= product[:offering]['Name'] %></td>
-    </tr>
-    <tr>
-      <td><span class="glyphicon glyphicon-ok"></span> Период обслуживания - <%= product[:price]['Name'] %></td>
-    </tr>
-    <tr>
-      <td> <span class="text-muted">Цена:</span> <%= number_to_currency(@widget.order['Amount'], locale: :ru, precision: 0) %></td>
-    </tr>
-    <% end %>
-  </table>
+
+  <% @widget.order_products.each do |product| %>
+    <li><div class="in"><%= product[:offering]['Name'] %></div></li>
+    <li><div class="in">Период обслуживания - <%= product[:price]['Name'] %></div></li>
+    <li class="ok">
+      <div class="in">
+        <mark>Цена:</mark> <strong><%= number_to_currency(@widget.order['Amount'], locale: :ru, precision: 0) %></strong>
+      </div>
+    </li>
+  <% end %>
 
   <% if @widget.status == 'chated' %>
-  <div class="panel-body">
+  <li class="pay">
+    <div class="in">
     <form action="<%= @widget.target_url %>" method="post" target="_blank">
         <input type="hidden" name="PaymentType" value="qiwi">
         <input type="hidden" name="Qiwi.PayerPhone" value="<%= @current_user_phone %>">
         <input type="hidden" name="Receipt.FIO" value="<%= @current_user.first_name %> <%= @current_user.last_name %>">
         <input type="hidden" name="Receipt.Address" value="">
-        <button type="submit" class="btn btn-warning btn-sm"> Оплатить </button>
+        <button type="submit" class="default-button-orange"> Оплатить </button>
     </form>
-  </div>
+    </div>
   <% else %>
-    <div class="panel-footer">Заказ оплачен</div>
+  <li class="status">
+      <div class="in">Заказ оплачен</div>
+  </li>
   <% end -%>
 
-  <% else %>
-  <div class="panel-body">
-    <p>В корзине пусто...</p>
-  </div>
-  <% end -%>
+<% else %>
 
+  <li class="status">
+      <div class="in">В корзине пусто...</div>
+  </li>
+
+<% end -%>
+</ul>
 </div>
