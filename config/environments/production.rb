@@ -81,25 +81,24 @@ DsCabinetWidgets::Application.configure do
   config.log_formatter = ::Logger::Formatter.new
 
   # UAS settings
-  config.uas_url = 'https://pim.sredda.ru/authentication'
-  config.uas_sertificate = "#{Rails.root}/certs/ds_admin.pem"
+  config.uas_url = 'https://ccdemopim.sredda.ru/authentication'
+  config.uas_sertificate = "#{Rails.root}/certs/ds_user.pem"
   config.uas_query_log = true
   config.uas_curl_verbose = true
 
   # PIM settings
-  config.pim_url = 'https://pim.sredda.ru'
+  config.pim_url = 'https://ccdemopim.sredda.ru'
   config.pim_sertificate = "#{Rails.root}/certs/ds_admin.pem"
-  config.pim_product_offerings = ['5336743']
+  config.pim_product_offerings = ['3000319']
   config.pim_product_url = 'http://dsstore.dasreda.ru/'
   config.pim_query_log = true
   config.pim_curl_verbose = true
 
   # CART settings
-  config.cart_url = 'http://cart.sredda.ru'
+  config.cart_url = 'https://cart-delo.sredda.ru'
   config.cart_sertificate = "#{Rails.root}/certs/ds_admin.pem"
-  config.cart_summary_url = 'http://cart.sredda.ru/api/items/summary'
-  config.cart_merchant_id = '100004'
-  config.cart_merchant_password = 'password4'
+  config.cart_merchant_id = '400004'
+  config.cart_merchant_password = 'cArt123QWE123'
   config.cart_query_log = true
   config.cart_curl_verbose = true
 
