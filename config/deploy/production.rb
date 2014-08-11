@@ -4,9 +4,9 @@
 # server in each group is considered to be the first
 # unless any hosts have the primary property set.
 # Don't declare `role :all`, it's a meta role
-role :app, %w{aaarefiev@178.159.255.83}
-role :web, %w{aaarefiev@178.159.255.83}
-role :db,  %w{aaarefiev@178.159.255.83}
+role :app, %w{ds-cabinet@10.1.251.154}
+role :web, %w{ds-cabinet@10.1.251.154}
+role :db,  %w{ds-cabinet@10.1.251.154}
 
 set :application, 'ds-cabinet-widgets'
 set :deploy_to, '/var/www/ds-cabinet-widgets'

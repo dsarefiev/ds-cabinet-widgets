@@ -103,7 +103,7 @@ DsCabinetWidgets::Application.configure do
   config.cart_curl_verbose = true
 
   # CABINET settings
-  config.cabinet_url = 'http://legko.li'
+  config.cabinet_url = 'http://demo.legko.li'
   config.cabinet_curl_verbose = true
 
   config.widget_domain = 'widgets.legko.li'
